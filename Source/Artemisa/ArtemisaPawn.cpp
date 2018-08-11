@@ -76,7 +76,12 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 	CurrentMovement = CurrentMovement.RotateAngleAxis(RotateSpeed * RightValue * ForwardValue, FVector(0.f, 0.f, 1.f));
 
 	// Calculate  movement
-	const FVector Movement = CurrentMovement * MoveSpeed * DeltaSeconds * ForwardValue;
+	FVector Movement = CurrentMovement * MoveSpeed * DeltaSeconds * ForwardValue;
+
+	if (RightValue != 0.f && ForwardValue == 0.f)
+	{
+		CurrentMovement = CurrentMovement.RotateAngleAxis(RotateSpeed * RightValue, FVector(0.f, 0.f, 1.f));
+	}
 	
 	// If non-zero size, move this actor
 	if (Movement.SizeSquared() > 0.0f)
@@ -97,6 +102,18 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 			RootComponent->MoveComponent(Deflection, NewRotation, true);
 		}
 		
+	}
+	else if (RightValue != 0.f && ForwardValue == 0.f)
+	{
+		FRotator NewRotation = CurrentMovement.Rotation();
+		FHitResult Hit(1.f);
+		RootComponent->MoveComponent(Movement, NewRotation, true, &Hit);
+		if (Hit.IsValidBlockingHit())
+		{
+			const FVector Normal2D = Hit.Normal.GetSafeNormal2D();
+			const FVector Deflection = FVector::VectorPlaneProject(Movement, Normal2D) * (1.f - Hit.Time);
+			RootComponent->MoveComponent(Deflection, NewRotation, true);
+		}
 	}
 	// Obtain fire input (it's really dirty using an axis, but useful and fast now)
 	const float FireForwardValue = GetInputAxisValue(FireForwardBinding);;
