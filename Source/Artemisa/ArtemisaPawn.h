@@ -38,6 +38,10 @@ public:
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
 	float MoveSpeed;
 
+	/* The rotation speed of our ship */
+	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
+	float RotateSpeed;
+	
 	/** Sound to play each time we fire */
 	UPROPERTY(Category = Audio, EditAnywhere, BlueprintReadWrite)
 	class USoundBase* FireSound;
@@ -66,6 +70,9 @@ private:
 
 	/** Handle for efficient management of ShotTimerExpired timer */
 	FTimerHandle TimerHandle_ShotTimerExpired;
+
+	/* Current vector of pawn's movement */
+	FVector CurrentMovement;
 
 public:
 	/** Returns ShipMeshComponent subobject **/

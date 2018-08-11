@@ -46,10 +46,13 @@ AArtemisaPawn::AArtemisaPawn()
 
 	// Movement
 	MoveSpeed = 1000.0f;
+	RotateSpeed = 1.5f;
 	// Weapon
 	GunOffset = FVector(90.f, 0.f, 0.f);
 	FireRate = 0.1f;
 	bCanFire = true;
+
+	CurrentMovement = FVector(1.f, 0.f, 0.f);
 }
 
 void AArtemisaPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -69,19 +72,17 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 	const float ForwardValue = GetInputAxisValue(MoveForwardBinding);
 	const float RightValue = GetInputAxisValue(MoveRightBinding);
 
-	// Clamp max size so that (X=1, Y=1) doesn't cause faster movement in diagonal directions
-	const FVector MoveDirection = FVector(ForwardValue, RightValue, 0.f).GetClampedToMaxSize(1.0f);
+	CurrentMovement = CurrentMovement.RotateAngleAxis(RotateSpeed * RightValue, FVector(0.f, 0.f, 1.f));
 
 	// Calculate  movement
-	const FVector Movement = MoveDirection * MoveSpeed * DeltaSeconds;
-
+	const FVector Movement = CurrentMovement * MoveSpeed * DeltaSeconds * ForwardValue;
+	
 	// If non-zero size, move this actor
 	if (Movement.SizeSquared() > 0.0f)
 	{
 		const FRotator NewRotation = Movement.Rotation();
 		FHitResult Hit(1.f);
 		RootComponent->MoveComponent(Movement, NewRotation, true, &Hit);
-		
 		if (Hit.IsValidBlockingHit())
 		{
 			const FVector Normal2D = Hit.Normal.GetSafeNormal2D();
@@ -89,7 +90,6 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 			RootComponent->MoveComponent(Deflection, NewRotation, true);
 		}
 	}
-	
 	// Create fire direction vector
 	const float FireForwardValue = GetInputAxisValue(FireForwardBinding);
 	const float FireRightValue = GetInputAxisValue(FireRightBinding);
