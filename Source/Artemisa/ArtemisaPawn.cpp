@@ -80,7 +80,11 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 	// If non-zero size, move this actor
 	if (Movement.SizeSquared() > 0.0f)
 	{
-		const FRotator NewRotation = Movement.Rotation();
+		FRotator NewRotation = Movement.Rotation();
+		if (ForwardValue < 0.f)
+		{
+			
+		}
 		FHitResult Hit(1.f);
 		RootComponent->MoveComponent(Movement, NewRotation, true, &Hit);
 		if (Hit.IsValidBlockingHit())
