@@ -72,7 +72,7 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 	const float ForwardValue = GetInputAxisValue(MoveForwardBinding);
 	const float RightValue = GetInputAxisValue(MoveRightBinding);
 
-	CurrentMovement = CurrentMovement.RotateAngleAxis(RotateSpeed * RightValue, FVector(0.f, 0.f, 1.f));
+	CurrentMovement = CurrentMovement.RotateAngleAxis(RotateSpeed * RightValue * ForwardValue, FVector(0.f, 0.f, 1.f));
 
 	// Calculate  movement
 	const FVector Movement = CurrentMovement * MoveSpeed * DeltaSeconds * ForwardValue;
@@ -83,7 +83,8 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 		FRotator NewRotation = Movement.Rotation();
 		if (ForwardValue < 0.f)
 		{
-			
+			NewRotation.Add(0.f, 180.f, 0.f);
+			NewRotation.Clamp();
 		}
 		FHitResult Hit(1.f);
 		RootComponent->MoveComponent(Movement, NewRotation, true, &Hit);
@@ -93,6 +94,7 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 			const FVector Deflection = FVector::VectorPlaneProject(Movement, Normal2D) * (1.f - Hit.Time);
 			RootComponent->MoveComponent(Deflection, NewRotation, true);
 		}
+		
 	}
 	// Create fire direction vector
 	const float FireForwardValue = GetInputAxisValue(FireForwardBinding);
