@@ -46,6 +46,10 @@ public:
 	UPROPERTY(Category = Audio, EditAnywhere, BlueprintReadWrite)
 	class USoundBase* FireSound;
 
+	/* The health our ship */
+	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
+	float Health = 100.f;
+
 	// Begin Actor Interface
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
