@@ -84,6 +84,7 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 		FRotator NewRotation = Movement.Rotation();
 		if (ForwardValue < 0.f)
 		{
+			//We rotate the mesh 180 degrees when moving backwards
 			NewRotation.Add(0.f, 180.f, 0.f);
 			NewRotation.Clamp();
 		}
@@ -97,13 +98,15 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 		}
 		
 	}
-	// Create fire direction vector
-	const float FireForwardValue = GetInputAxisValue(FireForwardBinding);
-	const float FireRightValue = GetInputAxisValue(FireRightBinding);
-	const FVector FireDirection = FVector(FireForwardValue, FireRightValue, 0.f);
+	// Obtain fire input (it's really dirty using an axis, but useful and fast now)
+	const float FireForwardValue = GetInputAxisValue(FireForwardBinding);;
 
 	// Try and fire a shot
-	FireShot(FireDirection);
+	if (FireForwardValue > 0.f)
+	{
+		FireShot(CurrentMovement);
+	}
+	
 }
 
 void AArtemisaPawn::FireShot(FVector FireDirection)
