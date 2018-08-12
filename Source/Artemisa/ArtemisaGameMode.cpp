@@ -56,6 +56,8 @@ void AArtemisaGameMode::ChangeState(AGameState NewState)
 
 void AArtemisaGameMode::Init() {}
 void AArtemisaGameMode::Play() {}
-void AArtemisaGameMode::Pause() {}
+void AArtemisaGameMode::Pause() 
+{
+}
 void AArtemisaGameMode::Win() {}
 void AArtemisaGameMode::Defeat() {}
