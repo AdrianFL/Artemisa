@@ -34,6 +34,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "States")
 	void ChangeState(AGameState NewState);
 
+	UFUNCTION(BlueprintCallable, Category = "States")
+	AGameState GetAGameState() const { return CurrentState; }
+
 protected:
 	/** Called when the game starts. */
 	virtual void BeginPlay() override;
@@ -51,10 +54,15 @@ private:
 	std::map<AGameState, void (AArtemisaGameMode::*)()> StateFunctions;
 	AGameState CurrentState;
 
+	UFUNCTION(BlueprintCallable, Category = "States")
 	void Init();
+	UFUNCTION(BlueprintCallable, Category = "States")
 	void Play();
+	UFUNCTION(BlueprintCallable, Category = "States")
 	void Pause();
+	UFUNCTION(BlueprintCallable, Category = "States")
 	void Win();
+	UFUNCTION(BlueprintCallable, Category = "States")
 	void Defeat();
 };
 
