@@ -7,6 +7,14 @@ AArtemisaGameMode::AArtemisaGameMode()
 {
 	// set default pawn class to our character class
 	DefaultPawnClass = AArtemisaPawn::StaticClass();
+	
+	CurrentState = AGameState::INIT;
+
+	StateFunctions[AGameState::INIT] = &AArtemisaGameMode::Init;
+	StateFunctions[AGameState::PLAY] = &AArtemisaGameMode::Play;
+	StateFunctions[AGameState::PAUSE] = &AArtemisaGameMode::Pause;
+	StateFunctions[AGameState::WIN] = &AArtemisaGameMode::Win;
+	StateFunctions[AGameState::DEFEAT] = &AArtemisaGameMode::Defeat;
 }
 
 void AArtemisaGameMode::BeginPlay()
@@ -31,3 +39,23 @@ void AArtemisaGameMode::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass
 		}
 	}
 }
+
+void AArtemisaGameMode::ChangeState(AGameState NewState)
+{
+	//If new state is different
+	if (NewState != CurrentState) {
+		//If we can find a function that changes the state
+		auto iter = StateFunctions.find(NewState);
+		if (iter != StateFunctions.end()) {
+			void (AArtemisaGameMode::*function)() = iter->second;
+			(this->*function)();
+			CurrentState = NewState;
+		}
+	}
+}
+
+void AArtemisaGameMode::Init() {}
+void AArtemisaGameMode::Play() {}
+void AArtemisaGameMode::Pause() {}
+void AArtemisaGameMode::Win() {}
+void AArtemisaGameMode::Defeat() {}

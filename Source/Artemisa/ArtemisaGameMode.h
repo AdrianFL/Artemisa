@@ -2,10 +2,21 @@
 
 #pragma once
 
+#include <map>
+#include <functional>
 #include "Blueprint/UserWidget.h"
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "ArtemisaGameMode.generated.h"
+
+UENUM(BlueprintType)
+enum class AGameState : uint8 {
+	INIT,
+	PLAY,
+	PAUSE,
+	WIN,
+	DEFEAT
+};
 
 UCLASS(MinimalAPI)
 class AArtemisaGameMode : public AGameModeBase
@@ -19,6 +30,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "GUI")
 	void ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass);
 
+	/** Function to change state */
+	UFUNCTION(BlueprintCallable, Category = "States")
+	void ChangeState(AGameState NewState);
+
 protected:
 	/** Called when the game starts. */
 	virtual void BeginPlay() override;
@@ -30,6 +45,17 @@ protected:
 	/** The widget instance that we are using as our menu. */
 	UPROPERTY()
 	UUserWidget* CurrentWidget;
+
+private:
+	//Map of functions to be called when there's an state change
+	std::map<AGameState, void (AArtemisaGameMode::*)()> StateFunctions;
+	AGameState CurrentState;
+
+	void Init();
+	void Play();
+	void Pause();
+	void Win();
+	void Defeat();
 };
 
 
