@@ -11,6 +11,7 @@
 #include "Engine/CollisionProfile.h"
 #include "Engine/StaticMesh.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Sound/SoundBase.h"
 
 const FName AArtemisaPawn::MoveForwardBinding("MoveForward");
@@ -53,6 +54,9 @@ AArtemisaPawn::AArtemisaPawn()
 	bCanFire = true;
 
 	CurrentMovement = FVector(1.f, 0.f, 0.f);
+
+	//Planet
+	position_ratio = 13.0f;
 }
 
 void AArtemisaPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -115,6 +119,25 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 			RootComponent->MoveComponent(Deflection, NewRotation, true);
 		}
 	}
+
+
+	//=========================================
+	//Set position on the surface of the planet
+	//=========================================
+	//Get surface normal and location
+	FVector surfaceNormal = GetActorLocation() - planet->GetActorLocation();      //Actor location - planet location and normalize the vector
+	surfaceNormal.Normalize();
+
+	FVector surfaceLocation = surfaceNormal * planet->GetActorScale3D().X * position_ratio + planet->GetActorLocation(); //Normal from surface * size of planet + actual location
+
+	//Calculate new rotation of the Artemisa
+	FRotator rotation_in_surface = UKismetMathLibrary::MakeRotFromZX(surfaceNormal, GetActorForwardVector());
+
+	//Set new rotation and location
+	SetActorLocationAndRotation(surfaceLocation, rotation_in_surface);
+	//========================================
+
+
 	// Obtain fire input (it's really dirty using an axis, but useful and fast now)
 	const float FireForwardValue = GetInputAxisValue(FireForwardBinding);;
 
@@ -164,3 +187,27 @@ void AArtemisaPawn::ShotTimerExpired()
 	bCanFire = true;
 }
 
+void AArtemisaPawn::MoveOnPlanet(float deltaTime)
+{
+	// Find movement direction
+	const float ForwardValue = GetInputAxisValue(MoveForwardBinding);
+	const float RightValue = GetInputAxisValue(MoveRightBinding);
+
+	//Calculate current movement vector
+	CurrentMovement = deltaTime * MoveSpeed * FVector(ForwardValue, RightValue, 0.0f).GetClampedToSize(0.0f, 1.0f);
+
+	//Add to the actor
+	AddActorLocalOffset(CurrentMovement);
+
+	//Get surface normal and location
+	FVector surfaceNormal = GetActorLocation() - planet->GetActorLocation();      //Actor location - planet location and normalize the vector
+	surfaceNormal.Normalize();
+
+	FVector surfaceLocation = surfaceNormal * planet->GetActorScale3D().X * position_ratio + planet->GetActorLocation(); //Normal from surface * size of planet + actual location
+
+																														 //Calculate new rotation of the Artemisa
+	FRotator rotation_in_surface = UKismetMathLibrary::MakeRotFromZX(surfaceNormal, GetActorForwardVector());
+
+	//Set new rotation and location
+	SetActorLocationAndRotation(surfaceLocation, rotation_in_surface);
+}

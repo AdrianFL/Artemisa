@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Planet.h"
 #include "ArtemisaPawn.generated.h"
 
 UCLASS(Blueprintable)
@@ -66,6 +67,15 @@ public:
 	static const FName MoveRightBinding;
 	static const FName FireForwardBinding;
 	static const FName FireRightBinding;
+
+	//CIRCULAR MOVEMENT VARIABLES
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
+		APlanet* planet;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
+		float position_ratio;
+
+	void MoveOnPlanet(float); //Move the artemisa ship on the planet
 
 private:
 
