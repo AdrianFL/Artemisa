@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Planet.h"
+#include "ArtemisaProjectile.h"
 #include "ArtemisaPawn.generated.h"
 
 UCLASS(Blueprintable)
