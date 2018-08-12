@@ -213,5 +213,8 @@ void AArtemisaPawn::MoveOnPlanet(float deltaTime)
 
 	//Set new rotation and location
 	SetActorLocationAndRotation(surfaceLocation, rotation_in_surface);
+
+	//Apply rotation
+	RootComponent->AddLocalRotation(FRotator(ForwardValue, RightValue, 0.0f));
 	
 }
