@@ -72,6 +72,7 @@ void AArtemisaPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInput
 
 void AArtemisaPawn::Tick(float DeltaSeconds)
 {
+	/*
 	// Find movement direction
 	const float ForwardValue = GetInputAxisValue(MoveForwardBinding);
 	const float RightValue = GetInputAxisValue(MoveRightBinding);
@@ -131,7 +132,7 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 	FVector surfaceLocation = surfaceNormal * planet->GetActorScale3D().X * position_ratio + planet->GetActorLocation(); //Normal from surface * size of planet + actual location
 
 	//Calculate new rotation of the Artemisa
-	FRotator rotation_in_surface = UKismetMathLibrary::MakeRotFromZX(surfaceNormal, GetActorForwardVector());
+	FRotator rotation_in_surface = UKismetMathLibrary::MakeRotFromZX(surfaceNormal, CurrentMovement);
 
 	//Set new rotation and location
 	SetActorLocationAndRotation(surfaceLocation, rotation_in_surface);
@@ -146,7 +147,8 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 	{
 		FireShot(CurrentMovement);
 	}
-	
+	*/
+	MoveOnPlanet(DeltaSeconds);
 }
 
 void AArtemisaPawn::FireShot(FVector FireDirection)
@@ -194,10 +196,11 @@ void AArtemisaPawn::MoveOnPlanet(float deltaTime)
 	const float RightValue = GetInputAxisValue(MoveRightBinding);
 
 	//Calculate current movement vector
-	CurrentMovement = deltaTime * MoveSpeed * FVector(ForwardValue, RightValue, 0.0f).GetClampedToSize(0.0f, 1.0f);
+	CurrentMovement = CurrentMovement.RotateAngleAxis(RotateSpeed * RightValue * ForwardValue, FVector(0.f, 0.f, 1.f));
+	FVector Movement = CurrentMovement * MoveSpeed * deltaTime * ForwardValue;
 
 	//Add to the actor
-	AddActorLocalOffset(CurrentMovement);
+	AddActorLocalOffset(Movement);
 
 	//Get surface normal and location
 	FVector surfaceNormal = GetActorLocation() - planet->GetActorLocation();      //Actor location - planet location and normalize the vector
