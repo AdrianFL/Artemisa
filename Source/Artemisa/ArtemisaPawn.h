@@ -76,6 +76,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
 		float position_ratio;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
+		float camera_ratio;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
+		float horizontal_distance_camera;
+
 	void MoveOnPlanet(float); //Move the artemisa ship on the planet
 
 private:

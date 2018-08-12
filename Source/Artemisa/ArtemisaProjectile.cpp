@@ -33,7 +33,7 @@ AArtemisaProjectile::AArtemisaProjectile()
 	ProjectileMovement->ProjectileGravityScale = 0.f; // No gravity
 	*/
 	// Die after 3 seconds by default
-	InitialLifeSpan = 30.0f;
+	InitialLifeSpan = 3.2f;
 }
 
 void AArtemisaProjectile::Tick(float DeltaSeconds)
