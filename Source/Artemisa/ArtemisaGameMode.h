@@ -15,7 +15,8 @@ enum class AGameState : uint8 {
 	PLAY,
 	PAUSE,
 	WIN,
-	DEFEAT
+	DEFEAT,
+	OPTIONS
 };
 
 UCLASS(MinimalAPI)
@@ -64,6 +65,8 @@ private:
 	void Win();
 	UFUNCTION(BlueprintCallable, Category = "States")
 	void Defeat();
+	UFUNCTION(BlueprintCallable, Category = "States")
+	void Options();
 };
 
 
