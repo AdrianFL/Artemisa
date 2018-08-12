@@ -15,6 +15,7 @@ AArtemisaGameMode::AArtemisaGameMode()
 	StateFunctions[AGameState::PAUSE] = &AArtemisaGameMode::Pause;
 	StateFunctions[AGameState::WIN] = &AArtemisaGameMode::Win;
 	StateFunctions[AGameState::DEFEAT] = &AArtemisaGameMode::Defeat;
+	StateFunctions[AGameState::OPTIONS] = &AArtemisaGameMode::Options;
 }
 
 void AArtemisaGameMode::BeginPlay()
@@ -56,8 +57,7 @@ void AArtemisaGameMode::ChangeState(AGameState NewState)
 
 void AArtemisaGameMode::Init() {}
 void AArtemisaGameMode::Play() {}
-void AArtemisaGameMode::Pause() 
-{
-}
+void AArtemisaGameMode::Pause() {}
 void AArtemisaGameMode::Win() {}
 void AArtemisaGameMode::Defeat() {}
+void AArtemisaGameMode::Options() {}
