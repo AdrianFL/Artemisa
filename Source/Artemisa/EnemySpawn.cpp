@@ -65,7 +65,7 @@ void AEnemySpawn::Tick(float DeltaTime)
 void AEnemySpawn::Spawn()
 {
 	//Check if you can spawn
-	if (checkIfSpawn)
+	/*if (checkIfSpawn)
 	{
 		//Variables
 		FVector SpawnLocation = GetActorLocation();
@@ -98,16 +98,16 @@ void AEnemySpawn::Spawn()
 		}
 
 		World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, nullptr, spawn_frecuency);
-
+		*/
 		//Set spawn to false
-		checkIfSpawn = false;
+	/*	checkIfSpawn = false;
 
 		// try and play the sound if specified
 		/*if (FireSound != nullptr)
 		{
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 		}*/
-	}
+	/*}*/
 
 }
 
