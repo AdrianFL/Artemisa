@@ -40,9 +40,9 @@ AArtemisaPawn::AArtemisaPawn()
 	SpringArm->TargetArmLength = 2000;
 	SpringArm->bEnableCameraLag = false;
 	SpringArm->bEnableCameraRotationLag = false;
-	SpringArm->bInheritPitch = true;
-	SpringArm->bInheritYaw = true;
-	SpringArm->bInheritRoll = true;
+	SpringArm->bInheritPitch = false;
+	SpringArm->bInheritYaw = false;
+	SpringArm->bInheritRoll = false;
 
 	// Create camera component 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera0"));
@@ -182,14 +182,14 @@ void AArtemisaPawn::MoveOnPlanet(float deltaTime)
 	//=======================================================
 	//Location
 	// Calculus: "Absolute position of object" where the ship is + normal from surface * distance + (200m behind = - forward vector * 200.f * distance desired from ship)
-	//CameraBoom->SetRelativeLocation(FVector(0.0f, 0.0f, 1.0f) * planet->GetActorScale3D().X * camera_ratio - FVector(horizontal_distance_camera, 0.0f, 0.0f));
+	SpringArm->SetRelativeLocation(FVector(0.0f, 0.0f, 1.0f) * planet->GetActorScale3D().X * camera_ratio - FVector(horizontal_distance_camera, 0.0f, 0.0f));
 	//FVector normal = planet->GetActorLocation() - this->GetActorLocation();
 	//normal.Normalize();
-	//CameraBoom->SetRelativeLocation(normal * 2000);
+	//SpringArm->SetRelativeLocation(normal * 2000);
 
 	//Rotation
-	//FRotator lookAt = UKismetMathLibrary::FindLookAtRotation(CameraBoom->GetComponentLocation(), GetActorLocation());
-	//CameraBoom->SetRelativeRotation(lookAt);
+	FRotator lookAt = UKismetMathLibrary::FindLookAtRotation(SpringArm->GetComponentLocation(), GetActorLocation());
+	SpringArm->SetRelativeRotation(lookAt);
 
 	
 
