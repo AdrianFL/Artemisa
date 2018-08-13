@@ -1,0 +1,108 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="&#xd83c;&#xdfa7; Friday Night Gaming  1 HOUR MIX  FREE USE No Copyright!  Synthwave New Retro  More_data" version="1.3.0" audacityversion="2.1.3" sel0="76.3154596542" sel1="76.3154596542" vpos="0" h="0.0000000000" zoom="1.6985418235" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags>
+		<tag name="major_brand" value="mp42"/>
+		<tag name="Software" value="Lavf57.19.100"/>
+		<tag name="compatible_brands" value="isommp42"/>
+		<tag name="minor_version" value="0"/>
+	</tags>
+	<wavetrack name="&#xd83c;&#xdfa7; Friday Night Gaming  1 HOUR MIX  FREE USE No Copyright!  Synthwave New Retro  More" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="3365512">
+				<waveblock start="0">
+					<simpleblockfile filename="e0004a0c.au" len="58240" min="-0.20764" max="0.281007" rms="0.014026"/>
+				</waveblock>
+				<waveblock start="58240">
+					<simpleblockfile filename="e0004bb3.au" len="210903" min="-0.496752" max="0.530485" rms="0.036976"/>
+				</waveblock>
+				<waveblock start="269143">
+					<simpleblockfile filename="e000466b.au" len="213337" min="-0.401363" max="0.604319" rms="0.044849"/>
+				</waveblock>
+				<waveblock start="482480">
+					<simpleblockfile filename="e00038eb.au" len="262144" min="-0.497606" max="0.548422" rms="0.046895"/>
+				</waveblock>
+				<waveblock start="744624">
+					<simpleblockfile filename="e0003717.au" len="262144" min="-0.499434" max="0.434573" rms="0.045154"/>
+				</waveblock>
+				<waveblock start="1006768">
+					<simpleblockfile filename="e0003a0d.au" len="262144" min="-1.062592" max="1.02099" rms="0.153364"/>
+				</waveblock>
+				<waveblock start="1268912">
+					<simpleblockfile filename="e000332f.au" len="262144" min="-1.057099" max="1.077604" rms="0.403398"/>
+				</waveblock>
+				<waveblock start="1531056">
+					<simpleblockfile filename="e0003606.au" len="262144" min="-1.068727" max="1.045354" rms="0.411196"/>
+				</waveblock>
+				<waveblock start="1793200">
+					<simpleblockfile filename="e0003644.au" len="262144" min="-1.02396" max="1.049184" rms="0.417909"/>
+				</waveblock>
+				<waveblock start="2055344">
+					<simpleblockfile filename="e0003beb.au" len="262144" min="-1.035561" max="1.061528" rms="0.412475"/>
+				</waveblock>
+				<waveblock start="2317488">
+					<simpleblockfile filename="e0003fd0.au" len="262144" min="-1.072534" max="1.05199" rms="0.40764"/>
+				</waveblock>
+				<waveblock start="2579632">
+					<simpleblockfile filename="e0003c56.au" len="262144" min="-1.055475" max="1.027219" rms="0.400623"/>
+				</waveblock>
+				<waveblock start="2841776">
+					<simpleblockfile filename="e0003528.au" len="262144" min="-1.039441" max="1.010414" rms="0.407795"/>
+				</waveblock>
+				<waveblock start="3103920">
+					<simpleblockfile filename="e0004f12.au" len="261592" min="-1.028142" max="1.006999" rms="0.105756"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="&#xd83c;&#xdfa7; Friday Night Gaming  1 HOUR MIX  FREE USE No Copyright!  Synthwave New Retro  More" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="3365512">
+				<waveblock start="0">
+					<simpleblockfile filename="e0004edd.au" len="58240" min="-0.20764" max="0.281007" rms="0.014041"/>
+				</waveblock>
+				<waveblock start="58240">
+					<simpleblockfile filename="e0004b2a.au" len="210903" min="-0.494512" max="0.553961" rms="0.038363"/>
+				</waveblock>
+				<waveblock start="269143">
+					<simpleblockfile filename="e0004e22.au" len="213337" min="-0.428744" max="0.615188" rms="0.046846"/>
+				</waveblock>
+				<waveblock start="482480">
+					<simpleblockfile filename="e0003ac0.au" len="262144" min="-0.516977" max="0.535505" rms="0.048666"/>
+				</waveblock>
+				<waveblock start="744624">
+					<simpleblockfile filename="e00039e3.au" len="262144" min="-0.460772" max="0.549663" rms="0.047573"/>
+				</waveblock>
+				<waveblock start="1006768">
+					<simpleblockfile filename="e00037ea.au" len="262144" min="-1.020077" max="1.006045" rms="0.152118"/>
+				</waveblock>
+				<waveblock start="1268912">
+					<simpleblockfile filename="e0003b02.au" len="262144" min="-1.038452" max="1.046256" rms="0.402782"/>
+				</waveblock>
+				<waveblock start="1531056">
+					<simpleblockfile filename="e0003768.au" len="262144" min="-1.029713" max="1.050562" rms="0.410986"/>
+				</waveblock>
+				<waveblock start="1793200">
+					<simpleblockfile filename="e00039bd.au" len="262144" min="-1.04118" max="1.04717" rms="0.418153"/>
+				</waveblock>
+				<waveblock start="2055344">
+					<simpleblockfile filename="e000315a.au" len="262144" min="-1.034863" max="1.057926" rms="0.412596"/>
+				</waveblock>
+				<waveblock start="2317488">
+					<simpleblockfile filename="e000381b.au" len="262144" min="-1.07153" max="1.041637" rms="0.408042"/>
+				</waveblock>
+				<waveblock start="2579632">
+					<simpleblockfile filename="e00037f7.au" len="262144" min="-1.047129" max="1.03608" rms="0.400447"/>
+				</waveblock>
+				<waveblock start="2841776">
+					<simpleblockfile filename="e0003a2b.au" len="262144" min="-1.059522" max="1.09196" rms="0.407907"/>
+				</waveblock>
+				<waveblock start="3103920">
+					<simpleblockfile filename="e0004e6a.au" len="261592" min="-1.02942" max="0.975676" rms="0.104773"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>
