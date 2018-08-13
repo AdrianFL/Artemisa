@@ -38,6 +38,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "States")
 	AGameState GetAGameState() const { return CurrentState; }
 
+	/* The level we are in */
+	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
+	int Level = 1;
+
 protected:
 	/** Called when the game starts. */
 	virtual void BeginPlay() override;
