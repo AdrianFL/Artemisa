@@ -65,7 +65,7 @@ void AEnemySpawn::Tick(float DeltaTime)
 void AEnemySpawn::Spawn()
 {
 	//Check if you can spawn
-	/*if (checkIfSpawn)
+	if (checkIfSpawn)
 	{
 		//Variables
 		FVector SpawnLocation = GetActorLocation();
@@ -107,7 +107,7 @@ void AEnemySpawn::Spawn()
 		{
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 		}*/
-	//}
+	}
 
 }
 

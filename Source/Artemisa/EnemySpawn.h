@@ -30,7 +30,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	//Spawn at a specific location and a number of enemies
-	void Spawn(int);
+	void Spawn();
 	
 	//Renew spawn checker
 	void SpawnTimerRenew();
