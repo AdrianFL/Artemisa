@@ -10,11 +10,12 @@ APlanet::APlanet()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Fill necessary data
-	sizeSpeed      = 5.0f;
-	minSize        = 1.0f;
-	maxSize   	   = 20.0f;
-	reductionState = true;
-	growthState    = false;
+	sizeSpeed			= 5.0f;
+	minSize				= 1.0f;
+	maxSize   			= 20.0f;
+	reductionState		= true;
+	growthState			= false;
+	VictoryCondition	= false;
 
 	//Create sub components
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
@@ -63,6 +64,7 @@ void APlanet::ReduceSize(float DeltaTime)
 	if(scale.X <= minSize)
 	{
 		scale = FVector(minSize);
+		VictoryCondition = true;
 	}
 	SetActorRelativeScale3D(scale);
 }
@@ -77,6 +79,7 @@ void APlanet::GrowSize(float DeltaTime)
 	if(scale.X >= maxSize)
 	{
 		scale = FVector(maxSize);
+		VictoryCondition = true;
 	}
 	SetActorRelativeScale3D(scale);
 }

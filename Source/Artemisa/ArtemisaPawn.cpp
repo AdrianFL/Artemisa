@@ -88,6 +88,12 @@ void AArtemisaPawn::Tick(float DeltaSeconds)
 	{
 		FireShot(GetActorForwardVector());
 	}
+
+	//Check if we have won
+	if (planet->VictoryCondition)
+	{
+		Victory = true;
+	}
 }
 
 void AArtemisaPawn::FireShot(FVector FireDirection)
