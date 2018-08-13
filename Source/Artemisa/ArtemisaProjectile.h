@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Planet.h"
+#include "Components/SphereComponent.h"
 #include "ArtemisaProjectile.generated.h"
 
 class UProjectileMovementComponent;
@@ -20,6 +21,13 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Projectile, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* ProjectileMesh;
 
+	/** Sphere collision component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Projectile, meta = (AllowPrivateAccess = "true"))
+	USphereComponent* collisionComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
+	float collisionRadius;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
 	APlanet* planet;
 
@@ -30,6 +38,10 @@ public:
 	AArtemisaProjectile();
 
 	virtual void Tick(float DeltaSeconds) override;
+	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	void OnBeingOverlaped(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	/** Function to handle the projectile hitting something */
 	UFUNCTION()
@@ -39,5 +51,7 @@ public:
 	FORCEINLINE UStaticMeshComponent* GetProjectileMesh() const { return ProjectileMesh; }
 	/** Returns ProjectileMovement subobject **/
 	//FORCEINLINE UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
+
+
 };
 

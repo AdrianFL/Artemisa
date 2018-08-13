@@ -1,6 +1,7 @@
 // Copyright 1998-2018 Epic Games, Inc. All Rights Reserve
 
 #include "ArtemisaProjectile.h"
+#include "EnemyChaser.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Components/StaticMeshComponent.h"
@@ -33,7 +34,14 @@ AArtemisaProjectile::AArtemisaProjectile()
 	ProjectileMovement->ProjectileGravityScale = 0.f; // No gravity
 	*/
 	// Die after 3 seconds by default
-	InitialLifeSpan = 3.2f;
+	InitialLifeSpan = 40.f;
+
+	//Create collision component
+	collisionRadius = 20.f;
+	collisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("ProjectileCollision0"));
+	collisionComponent->SetSphereRadius(collisionRadius);
+	collisionComponent->SetupAttachment(ProjectileMesh);
+	collisionComponent->SetGenerateOverlapEvents(true);
 }
 
 void AArtemisaProjectile::Tick(float DeltaSeconds)
@@ -56,6 +64,15 @@ void AArtemisaProjectile::Tick(float DeltaSeconds)
 	SetActorLocationAndRotation(surfaceLocation, rotation_in_surface);
 }
 
+void AArtemisaProjectile::BeginPlay()
+{
+	//Always do this babe
+	Super::BeginPlay();
+
+	//The internet said so
+	collisionComponent->OnComponentBeginOverlap.AddDynamic(this, &AArtemisaProjectile::OnBeingOverlaped);
+}
+
 void AArtemisaProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
@@ -65,4 +82,18 @@ void AArtemisaProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor
 	}
 
 	Destroy();
+}
+
+void AArtemisaProjectile::OnBeingOverlaped(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Que pasa AQUI QUE OVERLAPEA CON NAVE"));
+
+	//Si hay otro actor, si no es él mismo, y si existe el otro componente sobre el que se ha chocado
+	/*if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->IsA(AEnemyChaser::StaticClass()))
+	{
+		
+		//dynamic_cast<AEnemyChaser*>(OtherActor)->ActivateDestruction();
+		//InitialLifeSpan = 0.0f;
+		//Destroy();
+	}*/
 }

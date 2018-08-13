@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Planet.h"
 #include "ArtemisaPawn.h"
+#include "Components/SphereComponent.h"
 #include "EnemyChaser.generated.h"
 
 UCLASS()
@@ -28,6 +29,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// Function that destroys the enemy
+	UFUNCTION()
+	void ActivateDestruction();
+
 	//CIRCULAR MOVEMENT VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
 	APlanet* planet;
@@ -35,4 +40,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
 	AArtemisaPawn* player;
 	
+	/** Sphere collision component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Projectile, meta = (AllowPrivateAccess = "true"))
+		USphereComponent* collisionComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
+		float collisionRadius;
 };

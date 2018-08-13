@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "EnemyChaser.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/CollisionProfile.h"
 #include "Engine/StaticMesh.h"
-#include "EnemyChaser.h"
 
 
 // Sets default values
@@ -17,10 +17,15 @@ AEnemyChaser::AEnemyChaser()
 	RootComponent = ShipMeshComponent;
 	ShipMeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
 	ShipMeshComponent->SetStaticMesh(ShipMesh.Object);
-
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	//Create collision collider
+	collisionRadius = 20.f;
+	collisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("EnemyChaserCollision0"));
+	collisionComponent->SetSphereRadius(collisionRadius);
+	collisionComponent->SetupAttachment(ShipMeshComponent);
+	collisionComponent->SetGenerateOverlapEvents(true);
 }
 
 // Called when the game starts or when spawned
@@ -64,3 +69,10 @@ void AEnemyChaser::Tick(float DeltaTime)
 
 }
 
+void AEnemyChaser::ActivateDestruction()
+{
+	//Activate some spectacular animations and special effects here
+
+	//Destroy entity itself
+	Destroy();
+}
