@@ -48,6 +48,14 @@ AArtemisaPawn::AArtemisaPawn()
 	/*CameraComponent->bAbsoluteRotation = true;        // Camera has to be absolute so calculations work and it doesn't rotate with the camera
 	CameraComponent->bAbsoluteLocation = true;        // Camera has to be absolute so calculations work AND IT MOVES RIGHT
 	*/
+
+	//Create collision component
+	collisionRadius = 50.f;
+	collisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("ArtemisaCollision0"));
+	collisionComponent->SetSphereRadius(collisionRadius);
+	collisionComponent->SetupAttachment(ShipMeshComponent);
+	collisionComponent->SetGenerateOverlapEvents(true);
+
 	// Movement
 	MoveSpeed = 1500.0f;
 	RotateSpeed = 1.5f;

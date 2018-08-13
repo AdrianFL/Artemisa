@@ -86,6 +86,13 @@ public:
 
 	void MoveOnPlanet(float); //Move the artemisa ship on the planet
 
+	/** Sphere collision component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Projectile, meta = (AllowPrivateAccess = "true"))
+	USphereComponent* collisionComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
+	float collisionRadius;
+
 private:
 
 	/* Flag to control firing  */

@@ -33,6 +33,11 @@ public:
 	UFUNCTION()
 	void ActivateDestruction();
 
+	//Function that destroys the enemy when hit by the player
+	UFUNCTION()
+	void OnBeingOverlaped(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+
 	//CIRCULAR MOVEMENT VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
 	APlanet* planet;
