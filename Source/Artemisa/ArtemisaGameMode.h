@@ -38,9 +38,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "States")
 	AGameState GetAGameState() const { return CurrentState; }
 
-	/* The level we are in */
+	/* The level we start with */
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
 	int Level = 1;
+
+	/* The level we are in */
+	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
+	int CurrentLevel = 1;
 
 protected:
 	/** Called when the game starts. */
