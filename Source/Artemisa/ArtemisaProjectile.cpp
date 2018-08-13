@@ -34,7 +34,7 @@ AArtemisaProjectile::AArtemisaProjectile()
 	ProjectileMovement->ProjectileGravityScale = 0.f; // No gravity
 	*/
 	// Die after 3 seconds by default
-	InitialLifeSpan = 40.f;
+	InitialLifeSpan = 3.5f;
 
 	//Create collision component
 	collisionRadius = 20.f;

@@ -49,6 +49,9 @@ public:
 	UPROPERTY(EditAnywhere) 	//Check if the planet is growing
 	bool growthState;
 
+	UPROPERTY(EditAnywhere)		//Check if the player has won
+	bool VictoryCondition;
+
 	// Mesh component
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* mesh;

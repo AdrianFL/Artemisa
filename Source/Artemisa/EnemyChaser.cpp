@@ -43,10 +43,10 @@ void AEnemyChaser::Tick(float DeltaTime)
 	
 	if (distance < 10.f)
 	{
-		//Call to lose action
+		player->Defeat = true;
 	}
 
-	FVector Movement = FVector(1.f, 0.f, 0.f) * 1000.f * DeltaTime;
+	FVector Movement = FVector(1.f, 0.f, 0.f) * 800.f * DeltaTime;
 
 	//Add to the actor
 	AddActorLocalOffset(Movement);
