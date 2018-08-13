@@ -57,7 +57,7 @@ AArtemisaPawn::AArtemisaPawn()
 	collisionComponent->SetGenerateOverlapEvents(true);
 
 	// Movement
-	MoveSpeed = 1500.0f;
+	MoveSpeed = 2000.0f;
 	RotateSpeed = 1.5f;
 	// Weapon
 	GunOffset = FVector(90.f, 0.f, 0.f);
@@ -147,7 +147,7 @@ void AArtemisaPawn::MoveOnPlanet(float deltaTime)
 {
 	// Find movement direction
 	const float ForwardValue = GetInputAxisValue(MoveForwardBinding);
-	const float RightValue = GetInputAxisValue(MoveRightBinding) * 2.5f;
+	const float RightValue = GetInputAxisValue(MoveRightBinding) * 3.f;
 
 	//Calculate current movement vector
 	FVector Movement = CurrentMovement * MoveSpeed * deltaTime * ForwardValue;

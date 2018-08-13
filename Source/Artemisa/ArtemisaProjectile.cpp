@@ -34,10 +34,10 @@ AArtemisaProjectile::AArtemisaProjectile()
 	ProjectileMovement->ProjectileGravityScale = 0.f; // No gravity
 	*/
 	// Die after 3 seconds by default
-	InitialLifeSpan = 3.5f;
+	InitialLifeSpan = 4.5f;
 
 	//Create collision component
-	collisionRadius = 20.f;
+	collisionRadius = 30.f;
 	collisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("ProjectileCollision0"));
 	collisionComponent->SetSphereRadius(collisionRadius);
 	collisionComponent->SetupAttachment(ProjectileMesh);
@@ -46,7 +46,7 @@ AArtemisaProjectile::AArtemisaProjectile()
 
 void AArtemisaProjectile::Tick(float DeltaSeconds)
 {
-	FVector Movement = FVector(1.f, 0.f, 0.f) * 1800.f * DeltaSeconds;
+	FVector Movement = FVector(1.f, 0.f, 0.f) * 2500.f * DeltaSeconds;
 
 	//Add to the actor
 	AddActorLocalOffset(Movement);
