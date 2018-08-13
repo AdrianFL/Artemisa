@@ -38,7 +38,7 @@ AArtemisaProjectile::AArtemisaProjectile()
 
 void AArtemisaProjectile::Tick(float DeltaSeconds)
 {
-	FVector Movement = FVector(1.f, 0.f, 0.f) * 1000.f * DeltaSeconds;
+	FVector Movement = FVector(1.f, 0.f, 0.f) * 1800.f * DeltaSeconds;
 
 	//Add to the actor
 	AddActorLocalOffset(Movement);

@@ -46,11 +46,11 @@ AArtemisaPawn::AArtemisaPawn()
 	CameraComponent->bUsePawnControlRotation = false;	// Camera does not rotate relative to arm
 
 	// Movement
-	MoveSpeed = 1000.0f;
+	MoveSpeed = 1500.0f;
 	RotateSpeed = 1.5f;
 	// Weapon
 	GunOffset = FVector(90.f, 0.f, 0.f);
-	FireRate = 0.1f;
+	FireRate = 0.15f;
 	bCanFire = true;
 
 	CurrentMovement = FVector(1.f, 0.f, 0.f);

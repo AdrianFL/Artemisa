@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Planet.h"
+#include "ArtemisaPawn.h"
 #include "EnemyChaser.generated.h"
 
 UCLASS()
@@ -11,6 +13,9 @@ class ARTEMISA_API AEnemyChaser : public AActor
 {
 	GENERATED_BODY()
 	
+	/* The mesh component */
+	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class UStaticMeshComponent* ShipMeshComponent;
 public:	
 	// Sets default values for this actor's properties
 	AEnemyChaser();
@@ -23,6 +28,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
+	//CIRCULAR MOVEMENT VARIABLES
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
+	APlanet* planet;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
+	AArtemisaPawn* player;
 	
 };
