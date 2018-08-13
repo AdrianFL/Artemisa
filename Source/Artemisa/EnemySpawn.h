@@ -32,6 +32,9 @@ public:
 	//Spawn at a specific location and a number of enemies
 	void Spawn(int);
 	
+	//Renew spawn checker
+	void SpawnTimerRenew();
+
 	//SPAWN ACTOR DATA
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Planet)
 	float spawn_frecuency;
