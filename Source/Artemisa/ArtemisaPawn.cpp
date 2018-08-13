@@ -43,7 +43,10 @@ AArtemisaPawn::AArtemisaPawn()
 	// Create a camera...
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TopDownCamera"));
 	CameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+	//CameraComponent->SetupAttachment(RootComponent);
 	CameraComponent->bUsePawnControlRotation = false;	// Camera does not rotate relative to arm
+	//CameraComponent->bAbsoluteRotation = true;          // Camera has to be absolute so calculations work and it doesn't rotate with the camera
+	//CameraComponent->bAbsoluteLocation = true;          // Camera has to be absolute so calculations work AND IT MOVES RIGHT
 
 	// Movement
 	MoveSpeed = 1500.0f;
@@ -57,6 +60,8 @@ AArtemisaPawn::AArtemisaPawn()
 
 	//Planet
 	position_ratio = 13.0f;
+	camera_ratio = 5.0f;
+	horizontal_distance_camera = 200.f;
 }
 
 void AArtemisaPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -157,7 +162,15 @@ void AArtemisaPawn::MoveOnPlanet(float deltaTime)
 	{
 		RootComponent->AddLocalRotation(FRotator(ForwardValue, RightValue, 0.0f));
 	}
-	
-	
-	
+
+
+	//=======================================================
+	///////////////////////CAMERA////////////////////////////
+	//=======================================================
+	//Location
+	CameraBoom->SetRelativeLocation(FVector(0.0f, 0.0f, 1.0f) * planet->GetActorScale3D().X * camera_ratio - FVector(horizontal_distance_camera, 0.0f, 0.0f));
+
+	//Rotation
+	FRotator lookAt = UKismetMathLibrary::FindLookAtRotation(CameraBoom->GetComponentLocation(), GetActorLocation());
+	CameraBoom->SetRelativeRotation(lookAt);
 }
