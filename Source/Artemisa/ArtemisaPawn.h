@@ -48,9 +48,11 @@ public:
 	UPROPERTY(Category = Audio, EditAnywhere, BlueprintReadWrite)
 	class USoundBase* FireSound;
 
-	/* The health our ship */
+	/* Win and lose conditions */
 	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
-	float Health = 100.f;
+	bool Victory = false;
+	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
+	bool Defeat = false;
 
 	// Begin Actor Interface
 	virtual void Tick(float DeltaSeconds) override;
