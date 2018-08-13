@@ -29,7 +29,7 @@ AArtemisaPawn::AArtemisaPawn()
 	ShipMeshComponent->SetStaticMesh(ShipMesh.Object);
 	
 	// Cache our sound effect
-	static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/TwinStickFire.TwinStickFire"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/shoot.shoot"));
 	FireSound = FireAudio.Object;
 
 	// Create a camera boom...
