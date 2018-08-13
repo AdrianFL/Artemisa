@@ -62,45 +62,57 @@ void AEnemySpawn::Tick(float DeltaTime)
 
 }
 
-void AEnemySpawn::Spawn(int number)
+void AEnemySpawn::Spawn()
 {
-	//Variables
-	FVector SpawnLocation = GetActorLocation();
-	FRotator SpawnRotation = GetActorLocation().Rotation();
-
-	if (planet)
+	//Check if you can spawn
+	if (checkIfSpawn)
 	{
-		//Get surface normal and location
-		FVector surfaceNormal = GetActorLocation() - planet->GetActorLocation();      //Actor location - planet location and normalize the vector
-		surfaceNormal.Normalize();
+		//Variables
+		FVector SpawnLocation = GetActorLocation();
+		FRotator SpawnRotation = GetActorLocation().Rotation();
 
-		//Normal from surface * size of planet + actual location
-		FVector surfaceLocation = surfaceNormal * planet->GetActorScale3D().X * spawn_distance_ratio + planet->GetActorLocation();
+		if (planet)
+		{
+			//Get surface normal and location
+			FVector surfaceNormal = GetActorLocation() - planet->GetActorLocation();      //Actor location - planet location and normalize the vector
+			surfaceNormal.Normalize();
 
-		//Calculate new rotation of the Artemisa
-		FRotator rotation_in_surface = UKismetMathLibrary::MakeRotFromZX(surfaceNormal, GetActorForwardVector());
+			//Normal from surface * size of planet + actual location
+			FVector surfaceLocation = surfaceNormal * planet->GetActorScale3D().X * spawn_distance_ratio + planet->GetActorLocation();
 
-		//assign to previous variables
-		SpawnLocation = surfaceLocation;
-		SpawnRotation = rotation_in_surface;
+			//Calculate new rotation of the Artemisa
+			FRotator rotation_in_surface = UKismetMathLibrary::MakeRotFromZX(surfaceNormal, GetActorForwardVector());
+
+			//assign to previous variables
+			SpawnLocation = surfaceLocation;
+			SpawnRotation = rotation_in_surface;
+		}
+
+		//Do the spawn
+		UWorld* const World = GetWorld();
+		if (World != NULL)
+		{
+			// spawn the projectile
+			AEnemyChaser* projectile = World->SpawnActor<AEnemyChaser>(SpawnLocation, SpawnRotation);
+			projectile->planet = planet;
+		}
+
+		World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, nullptr, spawn_frecuency);
+
+		//Set spawn to false
+		checkIfSpawn = false;
+
+		// try and play the sound if specified
+		/*if (FireSound != nullptr)
+		{
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+		}*/
 	}
 
-	//Do the spawn
-	UWorld* const World = GetWorld();
-	if (World != NULL)
-	{
-		// spawn the projectile
-		AEnemyChaser* projectile = World->SpawnActor<AEnemyChaser>(SpawnLocation, SpawnRotation);
-		projectile->planet = planet;
-	}
+}
 
-	World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, nullptr, spawn_frecuency);
-
-	// try and play the sound if specified
-	/*if (FireSound != nullptr)
-	{
-	UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-	}*/
-	
+void AEnemySpawn::SpawnTimerRenew()
+{
+	checkIfSpawn = true;
 }
 

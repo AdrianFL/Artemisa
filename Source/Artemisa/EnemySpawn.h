@@ -15,6 +15,7 @@ class ARTEMISA_API AEnemySpawn : public AActor
 	//Private variables
 	float remaining_time;
 	int remaining_enemies;
+	bool checkIfSpawn;
 
 public:	
 	// Sets default values for this actor's properties
