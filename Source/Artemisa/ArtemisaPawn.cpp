@@ -33,20 +33,20 @@ AArtemisaPawn::AArtemisaPawn()
 	FireSound = FireAudio.Object;
 
 	// Create a camera boom...
-	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
+	/*CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
 	CameraBoom->bAbsoluteRotation = true; // Don't want arm to rotate when ship does
 	CameraBoom->TargetArmLength = 1200.f;
 	CameraBoom->RelativeRotation = FRotator(-80.f, 0.f, 0.f);
-	CameraBoom->bDoCollisionTest = false; // Don't want to pull camera in when it collides with level
+	CameraBoom->bDoCollisionTest = false; // Don't want to pull camera in when it collides with level*/
 
 	// Create a camera...
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TopDownCamera"));
-	CameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
-	//CameraComponent->SetupAttachment(RootComponent);
+	//CameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+	CameraComponent->SetupAttachment(RootComponent);
 	CameraComponent->bUsePawnControlRotation = false;	// Camera does not rotate relative to arm
-	//CameraComponent->bAbsoluteRotation = true;          // Camera has to be absolute so calculations work and it doesn't rotate with the camera
-	//CameraComponent->bAbsoluteLocation = true;          // Camera has to be absolute so calculations work AND IT MOVES RIGHT
+	CameraComponent->bAbsoluteRotation = true;        // Camera has to be absolute so calculations work and it doesn't rotate with the camera
+	CameraComponent->bAbsoluteLocation = true;        // Camera has to be absolute so calculations work AND IT MOVES RIGHT
 
 	// Movement
 	MoveSpeed = 1500.0f;
@@ -163,14 +163,37 @@ void AArtemisaPawn::MoveOnPlanet(float deltaTime)
 		RootComponent->AddLocalRotation(FRotator(ForwardValue, RightValue, 0.0f));
 	}
 
-
 	//=======================================================
 	///////////////////////CAMERA////////////////////////////
 	//=======================================================
 	//Location
+	// Calculus: "Absolute position of object" where the ship is + normal from surface * distance + (200m behind = - forward vector * 200.f * distance desired from ship)
 	CameraBoom->SetRelativeLocation(FVector(0.0f, 0.0f, 1.0f) * planet->GetActorScale3D().X * camera_ratio - FVector(horizontal_distance_camera, 0.0f, 0.0f));
 
 	//Rotation
 	FRotator lookAt = UKismetMathLibrary::FindLookAtRotation(CameraBoom->GetComponentLocation(), GetActorLocation());
 	CameraBoom->SetRelativeRotation(lookAt);
+
+	
+
+	// ABSOLUTE
+
+	//=======================================================
+	///////////////////////CAMERA////////////////////////////
+	//=======================================================
+	//Location
+	// Calculus: "Absolute position of object" where the ship is + normal from surface * distance + (200m behind = - forward vector * 200.f * distance desired from ship)
+
+	/*CameraComponent->SetRelativeLocation(surfaceNormal * camera_ratio + GetActorLocation());
+
+	//Rotation
+	//FRotator lookAt = UKismetMathLibrary::FindLookAtRotation(CameraComponent->GetComponentLocation(), GetActorLocation());
+	FRotator lookAt = GetActorLocation().Rotation();
+	lookAt.Yaw = 0.0f;     //Fixed looking position
+	//lookAt.Pitch = -lookAt.Pitch; //Reverse
+	lookAt.Roll  = -lookAt.Roll;  //Reverse
+	lookAt.Pitch -= 80.0f; //Looking down
+	
+	CameraComponent->SetRelativeRotation(lookAt);*/
+
 }
