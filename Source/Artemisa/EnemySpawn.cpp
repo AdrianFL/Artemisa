@@ -7,7 +7,6 @@
 #include "TimerManager.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Camera/CameraComponent.h"
-#include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Engine/CollisionProfile.h"
@@ -28,19 +27,33 @@ AEnemySpawn::AEnemySpawn()
 	enemy_distance_ratio = 14.f;
 	spawn_frecuency = 1.f;
 	enemies_to_spawn = 1;
-	remaining_enemies = enemies_to_spawn;
 	remaining_time = spawn_frecuency;
+	checkIfSpawn = true;
+
+	// Create the mesh component
+	SpawnMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SpawnMesh"));
+	RootComponent = SpawnMeshComponent;
 }
 
 // Called when the game starts or when spawned
 void AEnemySpawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
+}
+
+// Called every frame
+void AEnemySpawn::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (enemies_to_spawn > 0)
+	{
+		Spawn();
+	}
+
 	//============================================================
 	//COLOCATE PLATFORM
 	//============================================================
-/*
+
 	//Get surface normal and location
 	FVector surfaceNormal = GetActorLocation() - planet->GetActorLocation();      //Actor location - planet location and normalize the vector
 	surfaceNormal.Normalize();
@@ -52,21 +65,15 @@ void AEnemySpawn::BeginPlay()
 	FRotator rotation_in_surface = UKismetMathLibrary::MakeRotFromZX(surfaceNormal, GetActorForwardVector());
 
 	//Set new rotation and location
-	SetActorLocationAndRotation(surfaceLocation, rotation_in_surface);*/
-}
-
-// Called every frame
-void AEnemySpawn::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
+	SetActorLocationAndRotation(surfaceLocation, rotation_in_surface);
 }
 
 void AEnemySpawn::Spawn()
 {
 	//Check if you can spawn
-	/*if (checkIfSpawn)
+	if (checkIfSpawn)
 	{
+
 		//Variables
 		FVector SpawnLocation = GetActorLocation();
 		FRotator SpawnRotation = GetActorLocation().Rotation();
@@ -78,7 +85,7 @@ void AEnemySpawn::Spawn()
 			surfaceNormal.Normalize();
 
 			//Normal from surface * size of planet + actual location
-			FVector surfaceLocation = surfaceNormal * planet->GetActorScale3D().X * spawn_distance_ratio + planet->GetActorLocation();
+			FVector surfaceLocation = surfaceNormal * planet->GetActorScale3D().X * enemy_distance_ratio + planet->GetActorLocation();
 
 			//Calculate new rotation of the Artemisa
 			FRotator rotation_in_surface = UKismetMathLibrary::MakeRotFromZX(surfaceNormal, GetActorForwardVector());
@@ -93,22 +100,30 @@ void AEnemySpawn::Spawn()
 		if (World != NULL)
 		{
 			// spawn the projectile
-			AEnemyChaser* projectile = World->SpawnActor<AEnemyChaser>(SpawnLocation, SpawnRotation);
-			projectile->planet = planet;
-		}
+			AEnemyChaser* enemy = World->SpawnActor<AEnemyChaser>(SpawnLocation, SpawnRotation);
+			enemy->planet = planet;
+			enemy->player = player;
 
-		World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, nullptr, spawn_frecuency);
-		*/
-		//Set spawn to false
-	/*	checkIfSpawn = false;
+			World->GetTimerManager().SetTimer(TimerHandle_ShotTimerExpired, this, &AEnemySpawn::SpawnTimerRenew, spawn_frecuency);
+
+			//Set spawn to false
+			checkIfSpawn = false;
+
+			enemies_to_spawn--;
+		}
 
 		// try and play the sound if specified
 		/*if (FireSound != nullptr)
 		{
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 		}*/
-	/*}*/
+	}
 
+}
+
+void AEnemySpawn::SpawnMoreEnemies(int s)
+{
+	enemies_to_spawn += s;
 }
 
 void AEnemySpawn::SpawnTimerRenew()
