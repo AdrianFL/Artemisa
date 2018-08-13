@@ -32,7 +32,9 @@ AEnemyChaser::AEnemyChaser()
 void AEnemyChaser::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	//The internet said so
+	collisionComponent->OnComponentBeginOverlap.AddDynamic(this, &AEnemyChaser::OnBeingOverlaped);
 }
 
 // Called every frame
@@ -40,11 +42,6 @@ void AEnemyChaser::Tick(float DeltaTime)
 {
 	FVector CurrentMovement = player->GetActorLocation() - GetActorLocation();
 	float distance = FVector::Dist(player->GetActorLocation(), GetActorLocation());
-	
-	if (distance < 10.f)
-	{
-		player->Defeat = true;
-	}
 
 	FVector Movement = FVector(1.f, 0.f, 0.f) * 800.f * DeltaTime;
 
@@ -75,4 +72,15 @@ void AEnemyChaser::ActivateDestruction()
 
 	//Destroy entity itself
 	Destroy();
+}
+
+void AEnemyChaser::OnBeingOverlaped(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	//Si hay otro actor, si no es él mismo, y si existe el otro componente sobre el que se ha chocado
+	if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->IsA(AArtemisaPawn::StaticClass()))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("DOLORAZO DE MUERTE Q ME HA MATAO Q PASA"));
+		//ACTIVATE END FUCKING GAME
+		player->Defeat = true;
+	}
 }
