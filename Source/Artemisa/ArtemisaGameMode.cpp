@@ -61,3 +61,6 @@ void AArtemisaGameMode::Pause() {}
 void AArtemisaGameMode::Win() {}
 void AArtemisaGameMode::Defeat() {}
 void AArtemisaGameMode::Options() {}
+
+int AArtemisaGameMode::Level = 1;
+int AArtemisaGameMode::CurrLevel = 1;
