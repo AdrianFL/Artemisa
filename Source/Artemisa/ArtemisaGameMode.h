@@ -38,13 +38,17 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "States")
 	AGameState GetAGameState() const { return CurrentState; }
 
-	/* The level we start with */
-	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
-	int Level = 1;
+	UFUNCTION(BlueprintCallable, Category = "Level")
+	int GetLevel() { return Level; }
 
-	/* The level we are in */
-	UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
-	int CurrentLevel = 1;
+	UFUNCTION(BlueprintCallable, Category = "Level")
+	void SetLevel(int i) { Level = i; }
+
+	UFUNCTION(BlueprintCallable, Category = "Level")
+	int GetCurrLevel() { return CurrLevel; }
+
+	UFUNCTION(BlueprintCallable, Category = "Level")
+	void SetCurrLevel(int i) { CurrLevel = i; }
 
 protected:
 	/** Called when the game starts. */
@@ -75,6 +79,9 @@ private:
 	void Defeat();
 	UFUNCTION(BlueprintCallable, Category = "States")
 	void Options();
+
+	static int Level;
+	static int CurrLevel;
 };
 
 
