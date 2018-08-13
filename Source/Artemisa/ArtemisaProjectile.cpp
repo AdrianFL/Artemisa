@@ -86,14 +86,11 @@ void AArtemisaProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor
 
 void AArtemisaProjectile::OnBeingOverlaped(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Que pasa AQUI QUE OVERLAPEA CON NAVE"));
-
 	//Si hay otro actor, si no es él mismo, y si existe el otro componente sobre el que se ha chocado
-	/*if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->IsA(AEnemyChaser::StaticClass()))
+	if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->IsA(AEnemyChaser::StaticClass()))
 	{
-		
-		//dynamic_cast<AEnemyChaser*>(OtherActor)->ActivateDestruction();
-		//InitialLifeSpan = 0.0f;
-		//Destroy();
-	}*/
+
+		dynamic_cast<AEnemyChaser*>(OtherActor)->ActivateDestruction(); //Activate destruction of the enemy ship
+		SetLifeSpan(0.0001f);	//Can't destroy, so applying a really little lifespan so it dies in the next tick
+	}
 }
