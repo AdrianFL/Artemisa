@@ -40,7 +40,7 @@ void AEnemySpawn::BeginPlay()
 	//============================================================
 	//COLOCATE PLATFORM
 	//============================================================
-
+/*
 	//Get surface normal and location
 	FVector surfaceNormal = GetActorLocation() - planet->GetActorLocation();      //Actor location - planet location and normalize the vector
 	surfaceNormal.Normalize();
@@ -52,7 +52,7 @@ void AEnemySpawn::BeginPlay()
 	FRotator rotation_in_surface = UKismetMathLibrary::MakeRotFromZX(surfaceNormal, GetActorForwardVector());
 
 	//Set new rotation and location
-	SetActorLocationAndRotation(surfaceLocation, rotation_in_surface);
+	SetActorLocationAndRotation(surfaceLocation, rotation_in_surface);*/
 }
 
 // Called every frame
@@ -65,7 +65,7 @@ void AEnemySpawn::Tick(float DeltaTime)
 void AEnemySpawn::Spawn()
 {
 	//Check if you can spawn
-	if (checkIfSpawn)
+	/*if (checkIfSpawn)
 	{
 		//Variables
 		FVector SpawnLocation = GetActorLocation();
@@ -107,7 +107,7 @@ void AEnemySpawn::Spawn()
 		{
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 		}*/
-	}
+	//}
 
 }
 
