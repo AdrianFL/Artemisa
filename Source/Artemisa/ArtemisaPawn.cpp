@@ -182,14 +182,14 @@ void AArtemisaPawn::MoveOnPlanet(float deltaTime)
 	//=======================================================
 	//Location
 	// Calculus: "Absolute position of object" where the ship is + normal from surface * distance + (200m behind = - forward vector * 200.f * distance desired from ship)
-	SpringArm->SetRelativeLocation(FVector(0.0f, 0.0f, 1.0f) * planet->GetActorScale3D().X * camera_ratio - FVector(horizontal_distance_camera, 0.0f, 0.0f));
-	//FVector normal = planet->GetActorLocation() - this->GetActorLocation();
-	//normal.Normalize();
-	//SpringArm->SetRelativeLocation(normal * 2000);
+	/*SpringArm->SetRelativeLocation(FVector(0.0f, 0.0f, 1.0f) * planet->GetActorScale3D().X * camera_ratio - FVector(horizontal_distance_camera, 0.0f, 0.0f));
+	FVector normal = planet->GetActorLocation() - this->GetActorLocation();
+	normal.Normalize();
+	SpringArm->SetRelativeLocation(normal * 2000);
 
 	//Rotation
 	FRotator lookAt = UKismetMathLibrary::FindLookAtRotation(SpringArm->GetComponentLocation(), GetActorLocation());
-	SpringArm->SetRelativeRotation(lookAt);
+	SpringArm->SetRelativeRotation(lookAt);*/
 
 	
 
@@ -205,7 +205,7 @@ void AArtemisaPawn::MoveOnPlanet(float deltaTime)
 
 	//Rotation
 	//FRotator lookAt = UKismetMathLibrary::FindLookAtRotation(CameraComponent->GetComponentLocation(), GetActorLocation());
-	FRotator lookAt = GetActorLocation().Rotation();
+	//FRotator lookAt = GetActorLocation().Rotation();
 	lookAt.Yaw = 0.0f;     //Fixed looking position
 	//lookAt.Pitch = -lookAt.Pitch; //Reverse
 	lookAt.Roll  = -lookAt.Roll;  //Reverse
